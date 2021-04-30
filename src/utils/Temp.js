@@ -9,6 +9,10 @@ export default class Temp {
     return this.timezone
   }
 
+  getWeather() {
+    return this.consolidated_weather
+  }
+
   setDataWhether(dataWhether) {
     this.consolidated_weather = dataWhether !== undefined ? dataWhether.consolidated_weather : 'Desconocido'
     this.timezone = dataWhether !== undefined ? dataWhether.timezone : 'Desconocido'

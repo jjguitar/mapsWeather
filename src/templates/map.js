@@ -1,6 +1,6 @@
 import { Loader } from "@googlemaps/js-api-loader"
 import '../assets/styles/Map.scss'
-import ViewTemp from '../templates/viewTemp.js'
+import { viewTemp } from '../templates/viewTemp.js'
 
 const Maps = (temp) => {
 
@@ -24,10 +24,12 @@ const Maps = (temp) => {
     console.log(dataWhether.woeid)
     dataWhether = await _getWeather(dataWhether.woeid)
     await temp.setDataWhether(dataWhether)
-    await ViewTemp(temp)
+    await viewTemp(temp)
 
     map.addListener("click", async (event) => {
       clearMarkers()
+      console.log('event.latLng')
+      console.log(event.latLng)
       addMarker(event.latLng);
 
       let lat = event.latLng.lat()
@@ -36,8 +38,8 @@ const Maps = (temp) => {
       console.log(dataWhether.woeid)
       dataWhether = await _getWeather(dataWhether.woeid)
       await temp.setDataWhether(dataWhether)
-      console.log(dataWhether)
-      await ViewTemp(temp)
+      // console.log(dataWhether)
+      await viewTemp(temp)
       // let maxTemp = dataWhether.consolidated_weather[0].max_temp
       // drawWhether(maxTemp)
       // console.log(temp.getTimezone())
@@ -51,6 +53,73 @@ const Maps = (temp) => {
         map: map,
       });
       markers.push(marker);
+    }
+
+    let header = document.getElementById('input')
+    const drawHeader = async () => {
+      console.log(header.value)
+      if (header.value !== '' && header.value.length > 0){
+        let options = await _getWeatherInput(header.value)
+        let cities = ''
+        if (options.length > 1) {
+          for (let i of options) {
+            // cities.push(i.title)
+            cities = cities + `<option value="${i.title}"></option>`
+          }
+          header.innerHTML = `
+            <datalist id="colores">
+            ${cities}
+            </datalist>
+          `
+        } else if(options.length === 1) {
+          let latLng = options[0].latt_long
+          latLng = latLng.split(',')
+          console.log(latLng)
+          map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: parseInt(latLng[0]), lng: parseInt(latLng[1]) },
+            zoom: 6,
+          });
+          
+          dataWhether = await _getWOEID(latLng[0], latLng[1])
+          console.log(dataWhether.woeid)
+          dataWhether = await _getWeather(dataWhether.woeid)
+          await temp.setDataWhether(dataWhether)
+          await viewTemp(temp)
+          map.addListener("click", async (event) => {
+            clearMarkers()
+            console.log('event.latLng')
+            console.log(event.latLng)
+            addMarker(event.latLng);
+      
+            let lat = event.latLng.lat()
+            let lng = event.latLng.lng()
+            dataWhether = await _getWOEID(lat, lng)
+            console.log(dataWhether.woeid)
+            dataWhether = await _getWeather(dataWhether.woeid)
+            await temp.setDataWhether(dataWhether)
+            // console.log(dataWhether)
+            await viewTemp(temp)
+            // let maxTemp = dataWhether.consolidated_weather[0].max_temp
+            // drawWhether(maxTemp)
+            // console.log(temp.getTimezone())
+            // console.log(event.latLng.lat())
+            // console.log(event.latLng.lng())
+          });
+        }
+      }
+    }
+    header.addEventListener('keyup', await drawHeader)
+
+    const _getWeatherInput = async (val) => {
+      const apiURL = `https://www.metaweather.com/api/location/search/?query=${val}`
+      try {
+        const response = await fetch(apiURL)
+        const data = await response.json()
+        console.log(data)
+        return data
+      } catch (err) {
+        console.log('Fetch Error', err)
+      }
     }
 
     addMarker(bogotaCity);

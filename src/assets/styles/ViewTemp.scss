@@ -1,0 +1,42 @@
+#viewTemp {
+  width: 90vw;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  // grid-template-rows: 1fr;
+  margin: 20px auto 0;
+  column-gap: 3px;
+  row-gap: 10px;
+  .weather {
+    justify-self: center;
+    display:flex;
+    padding: 5px;
+    justify-content:center;
+    align-items:center;
+    flex-direction: column;
+    text-align: center;
+    border: 1px solid #111;
+    background: #1E213A;
+    color: #fff;
+    img {
+      margin-bottom: 10px;
+    }
+    h3 {
+      margin-bottom: 5px;
+    }
+    .temps {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      p:last-child {
+        color: rgb(167, 167, 167);
+      }
+    }
+  }
+  .weather:last-child {
+    grid-column: 2 / 4;
+    img {
+      width: 70px;
+      height: 70px;
+    }
+  }
+}
