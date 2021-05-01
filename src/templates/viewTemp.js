@@ -2,13 +2,10 @@ import '../assets/styles/ViewTemp.scss'
 
 const viewTemp = (temp) => {
   let tempView = document.getElementById('viewTemp')
-  console.log('temp.getTimezone()')
-  // console.log(temp.getWeather())
   let temps = temp.getWeather()
   let block = ''
   for (let i = 1; i < temps.length - 1; i++) {
     let icon = `https://www.metaweather.com/static/img/weather/${temps[i].weather_state_abbr}.svg`
-    console.log(temps[i])
     block = block + `
       <div class="weather">
         <h3>${i === 1 ? 'Tomorrow' : dateToString(temps[i].applicable_date)}</h3>
