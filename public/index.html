@@ -5,37 +5,16 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Maps and Whether</title>
-  <!-- <style>
-    /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-
-    /* Optional: Makes the sample page fill the window. */
-    html,
-    body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-
-    #floating-panel {
-      position: absolute;
-      top: 10px;
-      left: 25%;
-      z-index: 5;
-      background-color: #fff;
-      padding: 5px;
-      border: 1px solid #999;
-      text-align: center;
-      font-family: "Roboto", "sans-serif";
-      line-height: 30px;
-      padding-left: 10px;
-    }
-  </style> -->
 </head>
 <body>
   <header id="header">
-    <input id="input" list="colores" name="colores" type="text" placeholder="Search any place">
-    <input type="button" placeholder="search" value="clear" id="clear">
+    <div class="box">
+      <h1>Search any place</h1>
+      <form>
+        <input id="input" list="colores" name="colores" type="text" placeholder="Type...">
+        <input type="button" value="Clear" id="clear">
+      </form>
+    </div>
   </header>
   <main>
     <section id="map"></section>

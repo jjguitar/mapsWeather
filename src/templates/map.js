@@ -1,4 +1,5 @@
 import '../assets/styles/Header.scss'
+import '../assets/styles/MediaQuery.scss'
 import '../assets/styles/Map.scss'
 import { Loader } from "@googlemaps/js-api-loader"
 import { viewTemp } from '../templates/viewTemp.js'
@@ -70,6 +71,9 @@ const Maps = (temp) => {
               infoWindow.setContent("Location found.");
               infoWindow.open(map);
               map.setCenter(pos);
+              _drawMap(pos, 12)
+              _addMarker(pos)
+              _dataWeatherFnt(pos.lat, pos.lng)
             },
             () => {
               _handleLocationError(true, infoWindow, map.getCenter());

@@ -1,0 +1,59 @@
+@media (min-height: 320px) and (min-width: 340px) and (max-height: 640px) {
+  body {
+    display: grid;
+    width: 100vw;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas: 'header header header header'
+    'main main temp temp';
+    #header {
+      grid-area: header;
+      height: 25vh;
+      margin-bottom: 0;
+    }
+    main {
+      grid-area: main;
+      height: 70vh;
+      #map {
+        width: 90%;
+        height: 100%;
+      }
+    }
+    #viewTemp {
+      grid-area: temp;
+      width: 95%;
+      height: 70vh;
+      margin: 0;
+      grid-template-columns: 1fr 1fr;
+      row-gap: 3px;
+      .weather:nth-child(3), .weather:nth-child(4) {
+        display: none;
+      }
+      .weather.last {
+        grid-column: 1;
+      }
+      .humidity {
+        grid-column: 2;
+      }
+    }
+  }
+}
+
+@media (max-height: 319px), (max-height: 600px) and (max-width:320px), (max-width: 319px) {
+  body {
+    header, main, #viewTemp {
+      visibility: hidden;
+    }
+  }
+  body::before {
+    content: 'Dimensions aren\'t enough';
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 32px;
+    font-weight: 700;
+    color: transparent;
+    -webkit-text-stroke: 1px #555;
+  }
+}

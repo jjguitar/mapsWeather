@@ -9,7 +9,7 @@ const viewTemp = (temp) => {
     block = block + `
       <div class="weather">
         <h3>${i === 1 ? 'Tomorrow' : dateToString(temps[i].applicable_date)}</h3>
-        <img src="${icon}" width="60" height="60">
+        <img src="${icon}" width="40" height="40">
         <div class="temps">
           <p>${Math.round(temps[i].max_temp)}°C</p>
           <p>${Math.round(temps[i].min_temp)}°C</p>
@@ -19,13 +19,26 @@ const viewTemp = (temp) => {
   }
 
   block = block + `
-      <div class="weather">
-        <h3>${dateToString(temps[0].applicable_date)}</h3>
+      <div class="weather last">
+        <h3>Today</h3>
         <img src="https://www.metaweather.com/static/img/weather/${temps[0].weather_state_abbr}.svg" width="40" height="40">
         <div class="temps">
           <p>${Math.round(temps[0].max_temp)}°C</p>
           <p>${Math.round(temps[0].min_temp)}°C</p>
         </div>
+      </div>
+      <div class="weather humidity">
+        <h1>Humidity</h1>
+        <p>${temps[0].humidity}%</p>
+        <div class="percents">
+          <p>0</p>
+          <p>50</p>
+          <p>100</p>
+        </div>
+        <div class="container__progress-bar">
+          <div class="progress-bar" style="width:${temps[0].humidity}%"></div>
+        </div>
+        <div class="percent__symbol">%</div>
       </div>
     `
 
