@@ -1,7 +1,14 @@
+const cors = `https://cors-anywhere.herokuapp.com/`
 const getWOEID = async (lat, lng) => {
-  const apiURL = `https://www.metaweather.com/api/location/search/?lattlong=${lat},${lng}`
+  const apiURL = `${cors}https://www.metaweather.com/api/location/search/?lattlong=${lat},${lng}`
   try {
-    const response = await fetch(apiURL)
+    const response = await fetch(apiURL, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
+    })
     const data = await response.json()
     return data[0]
   } catch (err) {
@@ -10,9 +17,15 @@ const getWOEID = async (lat, lng) => {
 }
 
 const getWeather = async (woeid) => {
-  const apiURL = `https://www.metaweather.com/api/location/${woeid}/`
+  const apiURL = `${cors}https://www.metaweather.com/api/location/${woeid}/`
   try {
-    const response = await fetch(apiURL)
+    const response = await fetch(apiURL, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
+    })
     const data = await response.json()
     return data
   } catch (err) {
@@ -21,9 +34,15 @@ const getWeather = async (woeid) => {
 }
 
 const getWeatherInput = async (val) => {
-  const apiURL = `https://www.metaweather.com/api/location/search/?query=${val}`
+  const apiURL = `${cors}https://www.metaweather.com/api/location/search/?query=${val}`
   try {
-    const response = await fetch(apiURL)
+    const response = await fetch(apiURL, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
+    })
     const data = await response.json()
     return data
   } catch (err) {
