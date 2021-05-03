@@ -15,7 +15,7 @@ const Maps = (temp) => {
   const miamiCity = { lat: 25.728979, lng: -80.237419 }
 
   const loader = new Loader({
-    apiKey: "AIzaSyBQhS6W62IbuMFMsNOCAwYWQcXIYWC7N0c",
+    apiKey: process.env.API_URL,
     version: "weekly",
   });
 
